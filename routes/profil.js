@@ -8,7 +8,7 @@ const upload = multer({
     }
 });
 const db = require('../db.js');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const { requireLogin } = require('../routes/auth.js');
 
 router.get('/', requireLogin, async (req, res) => {
