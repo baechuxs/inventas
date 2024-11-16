@@ -1,10 +1,10 @@
 const mysql = require('mysql2');
 
 const pool = mysql.createPool({
-  host: 'mysql.railway.internal',
-  user: 'root',
-  password: 'ztXDFhClrTWixpHDOGcUaFXQyXXEwRGX',
-  database: 'railway',
+  host: 'inventas-sslythrrr.h.aivencloud.com',
+  user: 'avnadmin',
+  password: 'AVNS_bIfTMJVMVcDguBDRUqI',
+  database: 'inventas',
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
