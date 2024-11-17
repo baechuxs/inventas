@@ -4,19 +4,16 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
-    "tunnel": "lt --port 3000 --subdomain inventas",
-    "postinstall": "npm rebuild bcrypt --build-from-source"
+    "start": "nodemon index.js",
+    "tunnel": "lt --port 3000 --subdomain inventas"
   },
-  "engines": {
-  "node": "18.x"
-},
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
     "@popperjs/core": "^2.11.8",
+    "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.3.3",
     "chart.js": "^4.4.5",
@@ -34,6 +31,7 @@
     "nodemon": "^3.1.7",
     "path": "^0.12.7",
     "pdfkit": "^0.15.1",
+    "railway": "^2.0.17",
     "server": "^1.0.41",
     "sharp": "^0.33.5",
     "socket.io": "^4.8.1"

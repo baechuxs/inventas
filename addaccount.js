@@ -1,14 +1,22 @@
 const mysql = require('mysql2');
 const bcrypt = require('bcryptjs');
-const db = require('/db.js');
 
+// Database connection configuration
+const db = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  database: 'taspen'
+});
 
+// Admin credentials to add
 const newAdmin = {
   id_admin: 'ms300503',
     email: 'mutiarashakila300503@gmail.com',
     password: '12345'
   };
 
+// Connect to database
 db.connect(async (err) => {
   if (err) {
     console.error('Error connecting to database:', err);
@@ -17,9 +25,11 @@ db.connect(async (err) => {
   console.log('Connected to database');
 
   try {
+    // Generate password hash
     const salt = bcrypt.genSaltSync(10);
     const hashedPassword = bcrypt.hashSync(newAdmin.password, salt);
 
+    // SQL query to insert new admin
     const sql = 'INSERT INTO admin (id_admin, email, password) VALUES (?, ?, ?)';
     
     db.query(sql, [newAdmin.id_admin, newAdmin.email, hashedPassword], (err, result) => {
@@ -32,6 +42,7 @@ db.connect(async (err) => {
         console.log('Password:', newAdmin.password);
       }
       
+      // Close the database connection
       db.end();
     });
 

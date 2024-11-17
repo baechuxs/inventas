@@ -108,7 +108,7 @@ app.post('/logout', (req, res) => {
   });
 });
 
-const port = 3000;
+const port = 4000;
 app.listen(port, () => {
   console.log(`Server berjalan di http://localhost:${port}`);
 });
