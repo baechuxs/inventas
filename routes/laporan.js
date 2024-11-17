@@ -409,7 +409,7 @@ router.get('/printPenjualan',requireLogin, async (req, res) => {
 
         connection = await db.getConnection();
         const [rows] = await connection.query(`
-            SELECT * FROM penjualan ORDER BY tanggal_keluar ASC
+            SELECT * FROM Penjualan ORDER BY tanggal_keluar ASC
         `);
 
         let rowNumber = 6;

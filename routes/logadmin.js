@@ -9,7 +9,7 @@ router.get('/', requireLogin, async (req, res) => {
     let offset = (page - 1) * limit;
 
   try {
-    const [countResult] = await db.query('SELECT COUNT(*) AS total FROM log_aktivitas');
+    const [countResult] = await db.query('SELECT COUNT(*) AS total FROM Log_aktivitas');
     let totalData = countResult[0].total;
     let totalPages = Math.ceil(totalData / limit);
 
@@ -20,7 +20,7 @@ router.get('/', requireLogin, async (req, res) => {
         a.username AS nama_admin,
         l.jenis_aktivitas,
         l.detail_perubahan 
-      FROM log_aktivitas l
+      FROM Log_aktivitas l
       LEFT JOIN admin a ON l.id_admin = a.id_admin
       ORDER BY l.timestamp DESC 
       LIMIT ? OFFSET ?

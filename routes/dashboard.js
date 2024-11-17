@@ -5,15 +5,15 @@ const { requireLogin } = require('../routes/auth.js');
 
 router.get('/', requireLogin, async (req, res) => {
   try {
-    const [totalBarang] = await db.query('SELECT COUNT(id_barang) as total FROM barang');
-    const [barangLelang] = await db.query('SELECT COUNT(id_barang) as total FROM barang WHERE status_barang = "proses"');
-    const [akanLelang] = await db.query('SELECT COUNT(id_barang) as total FROM barang WHERE status_barang = "lelang"');
-    const [barangTersedia] = await db.query('SELECT COUNT(id_barang) as total FROM barang WHERE status_barang = "tersedia"');
-    const [barangJual] = await db.query('SELECT COUNT(id_barang) as total FROM barang WHERE status_barang = "jual"');
+    const [totalBarang] = await db.query('SELECT COUNT(id_barang) as total FROM Barang');
+    const [barangLelang] = await db.query('SELECT COUNT(id_barang) as total FROM Barang WHERE status_barang = "proses"');
+    const [akanLelang] = await db.query('SELECT COUNT(id_barang) as total FROM Barang WHERE status_barang = "lelang"');
+    const [barangTersedia] = await db.query('SELECT COUNT(id_barang) as total FROM Barang WHERE status_barang = "tersedia"');
+    const [barangJual] = await db.query('SELECT COUNT(id_barang) as total FROM Barang WHERE status_barang = "jual"');
     
-    const [notif] = await db.query('SELECT COUNT(id_notifikasi) as total FROM notifikasi WHERE status_baca = "0"');
+    const [notif] = await db.query('SELECT COUNT(id_notifikasi) as total FROM Notifikasi WHERE status_baca = "0"');
     
-    const [peringatanResult] = await db.query('SELECT pesan FROM notifikasi ORDER BY id_notifikasi DESC LIMIT 1');
+    const [peringatanResult] = await db.query('SELECT pesan FROM Notifikasi ORDER BY id_notifikasi DESC LIMIT 1');
     const peringatan = peringatanResult.length ? peringatanResult[0].pesan : 'Tidak ada notifikasi';
 
     const [latestItems] = await db.query(`

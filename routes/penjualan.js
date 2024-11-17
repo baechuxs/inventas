@@ -37,7 +37,7 @@ router.get('/', requireLogin, async (req, res) => {
 
     const [countResult] = await connection.query(`
         SELECT COUNT(*) AS total 
-        FROM penjualan p
+        FROM Penjualan p
         ${whereClause}
       `, queryParams);
 
@@ -54,7 +54,7 @@ router.get('/', requireLogin, async (req, res) => {
             p.harga_jual,
             p.tanggal_keluar,
             p.status_penjualan
-        FROM penjualan p
+        FROM Penjualan p
         ${whereClause}
         ORDER BY p.${sortField} ${sortOrder}
         LIMIT ? OFFSET ?

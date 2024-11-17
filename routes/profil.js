@@ -8,7 +8,7 @@ const upload = multer({
     }
 });
 const db = require('../db.js');
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 const { requireLogin } = require('../routes/auth.js');
 
 router.get('/', requireLogin, async (req, res) => {
@@ -23,7 +23,7 @@ router.get('/', requireLogin, async (req, res) => {
         }
 
         const [activities] = await db.query(
-            `SELECT * FROM Log_Aktivitas 
+            `SELECT * FROM Log_aktivitas 
              WHERE id_admin = ? 
              ORDER BY timestamp DESC 
              LIMIT 10`,

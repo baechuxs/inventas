@@ -119,7 +119,7 @@ router.get('/detail/:id', requireLogin, async (req, res) => {
              k.tanggal_perolehan, 
              kar.nama_karyawan, kar.id_karyawan,
              l.status_lelang
-      FROM barang b
+      FROM Barang b
       LEFT JOIN kepemilikan k ON b.id_barang = k.id_barang AND k.status_kepemilikan = 'aktif'
       LEFT JOIN karyawan kar ON k.id_karyawan = kar.id_karyawan
       LEFT JOIN lelang l ON b.id_barang = l.id_barang
@@ -179,7 +179,7 @@ router.post('/edit', requireLogin, upload.single('gambar_barang'), async (req, r
     }
 
     const [originalItem] = await connection.query(
-      'SELECT b.*, k1.*, k2.nama_karyawan FROM barang b JOIN kepemilikan k1 ON b.id_barang = k1.id_barang JOIN karyawan k2 ON k1.id_karyawan = k2.id_karyawan WHERE b.id_barang = ?',
+      'SELECT b.*, k1.*, k2.nama_karyawan FROM Barang b JOIN kepemilikan k1 ON b.id_barang = k1.id_barang JOIN karyawan k2 ON k1.id_karyawan = k2.id_karyawan WHERE b.id_barang = ?',
   [id_barang]
     );
 
@@ -366,7 +366,7 @@ router.get('/refresh', requireLogin, async (req, res) => {
 
     const [countResult] = await connection.query(`
         SELECT COUNT(*) AS total 
-        FROM barang b 
+        FROM Barang b 
         ${whereClause}
       `, queryParams);
 
@@ -391,7 +391,7 @@ router.get('/refresh', requireLogin, async (req, res) => {
               MOD(TIMESTAMPDIFF(MINUTE, l.waktu_mulai, l.waktu_selesai), 60), 'm',
               MOD(TIMESTAMPDIFF(SECOND, l.waktu_mulai, l.waktu_selesai), 60), 'd'
             ) as masa_lelang
-        FROM barang b
+        FROM Barang b
         LEFT JOIN kepemilikan kp ON b.id_barang = kp.id_barang AND kp.status_kepemilikan = 'aktif'
         LEFT JOIN karyawan k ON kp.id_karyawan = k.id_karyawan
         LEFT JOIN lelang l ON b.id_barang = l.id_barang
@@ -476,7 +476,7 @@ router.get('/', requireLogin, async (req, res) => {
 
     const [countResult] = await connection.query(`
         SELECT COUNT(*) AS total 
-        FROM barang b 
+        FROM Barang b 
         ${whereClause}
       `, queryParams);
 
@@ -501,7 +501,7 @@ router.get('/', requireLogin, async (req, res) => {
               MOD(TIMESTAMPDIFF(MINUTE, l.waktu_mulai, l.waktu_selesai), 60), 'm',
               MOD(TIMESTAMPDIFF(SECOND, l.waktu_mulai, l.waktu_selesai), 60), 'd'
             ) as masa_lelang
-        FROM barang b
+        FROM Barang b
         LEFT JOIN kepemilikan kp ON b.id_barang = kp.id_barang AND kp.status_kepemilikan = 'aktif'
         LEFT JOIN karyawan k ON kp.id_karyawan = k.id_karyawan
         LEFT JOIN lelang l ON b.id_barang = l.id_barang
@@ -510,7 +510,7 @@ router.get('/', requireLogin, async (req, res) => {
         LIMIT ? OFFSET ?
       `, [...queryParams, limit, offset]);
 
-    const [karyawan] = await connection.query('SELECT id_karyawan, nama_karyawan FROM karyawan');
+    const [karyawan] = await connection.query('SELECT id_karyawan, nama_karyawan FROM Karyawan');
 
     res.render('barang', {
       barang: rows,
@@ -540,7 +540,7 @@ router.get('/delete/:id_barang', requireLogin, async (req, res) => {
     await connection.beginTransaction();
 
     const [barangResult] = await connection.query(
-      'SELECT nama_barang FROM barang WHERE id_barang = ?',
+      'SELECT nama_barang FROM Barang WHERE id_barang = ?',
       [id_barang]
     );
 
@@ -551,10 +551,10 @@ router.get('/delete/:id_barang', requireLogin, async (req, res) => {
 
     const nama_barang = barangResult[0].nama_barang;
 
-    await connection.query('DELETE FROM notifikasi WHERE id_barang = ?', [id_barang]);
-    await connection.query('DELETE FROM lelang WHERE id_barang = ?', [id_barang]);
-    await connection.query('DELETE FROM kepemilikan WHERE id_barang = ?', [id_barang]);
-    await connection.query('DELETE FROM barang WHERE id_barang = ?', [id_barang]);
+    await connection.query('DELETE FROM Notifikasi WHERE id_barang = ?', [id_barang]);
+    await connection.query('DELETE FROM Lelang WHERE id_barang = ?', [id_barang]);
+    await connection.query('DELETE FROM Kepemilikan WHERE id_barang = ?', [id_barang]);
+    await connection.query('DELETE FROM Barang WHERE id_barang = ?', [id_barang]);
 
     await logAdminActivity(
       connection,

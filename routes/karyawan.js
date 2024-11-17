@@ -51,15 +51,15 @@ router.get('/delete/:id_karyawan', requireLogin, async (req, res) => {
 
     try {
         await db.query('START TRANSACTION');
-        const [karyawanResult] = await db.query('SELECT nama_karyawan FROM karyawan WHERE id_karyawan = ?', [id_karyawan]);
+        const [karyawanResult] = await db.query('SELECT nama_karyawan FROM Karyawan WHERE id_karyawan = ?', [id_karyawan]);
 
         if (!karyawanResult || karyawanResult.length === 0) {
             await db.query('ROLLBACK');
             return res.redirect('/karyawan');
         }
 
-        await db.query('DELETE FROM kepemilikan WHERE id_karyawan = ?', [id_karyawan]);
-        await db.query('DELETE FROM karyawan WHERE id_karyawan = ?', [id_karyawan]);
+        await db.query('DELETE FROM Kepemilikan WHERE id_karyawan = ?', [id_karyawan]);
+        await db.query('DELETE FROM Karyawan WHERE id_karyawan = ?', [id_karyawan]);
 
         await db.query('COMMIT');
         res.redirect('/karyawan');
@@ -74,7 +74,7 @@ router.get('/delete/:id_karyawan', requireLogin, async (req, res) => {
 router.get('/detail/:id',requireLogin, async (req, res) => {
     try {
         const id_karyawan = req.params.id;
-        const [rows] = await db.query('SELECT * FROM karyawan WHERE id_karyawan = ?', [id_karyawan]);
+        const [rows] = await db.query('SELECT * FROM Karyawan WHERE id_karyawan = ?', [id_karyawan]);
 
         if (rows.length > 0) {
             res.json({ success: true, data: rows[0] });
@@ -106,7 +106,7 @@ router.get('/refresh',requireLogin, async (req, res) => {
     try {
         const [countResult] = await db.query(`
             SELECT COUNT(*) AS total 
-            FROM karyawan 
+            FROM Karyawan 
             ${whereClause}
         `, queryParams);
         
@@ -115,7 +115,7 @@ router.get('/refresh',requireLogin, async (req, res) => {
 
         const [rows] = await db.query(`
             SELECT id_karyawan, nama_karyawan, jabatan, jenis_kelamin 
-            FROM karyawan 
+            FROM Karyawan 
             ${whereClause}
             LIMIT ? OFFSET ?`, 
             [...queryParams, limit, offset]
@@ -155,7 +155,7 @@ router.get('/',requireLogin, async (req, res) => {
     try {
         const [countResult] = await db.query(`
             SELECT COUNT(*) AS total 
-            FROM karyawan 
+            FROM Karyawan 
             ${whereClause}
         `, queryParams);
         
@@ -164,7 +164,7 @@ router.get('/',requireLogin, async (req, res) => {
 
         const [rows] = await db.query(`
             SELECT id_karyawan, nama_karyawan, jabatan, jenis_kelamin 
-            FROM karyawan 
+            FROM Karyawan 
             ${whereClause}
             LIMIT ? OFFSET ?`, 
             [...queryParams, limit, offset]
