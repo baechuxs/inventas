@@ -95,6 +95,9 @@ app.use('/penjualan', penjualan);
 app.use('/jual', jual);
 app.use('/r_notif', riwayat_notifikasi);
 
+const register = require('./routes/register');
+app.use('/register', register);
+
 app.post('/logout', (req, res) => {
   req.session.destroy(err => {
       if (err) {
