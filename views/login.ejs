@@ -7,19 +7,53 @@
     <title>Inventas Taspen</title>
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/login.css">
+    <style>
+        .register-link {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .register-link .btn {
+            width: 100%;
+            padding: 10px;
+        }
+
+        .divider {
+            margin: 20px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .divider:before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            border-top: 1px solid #ddd;
+            z-index: 1;
+        }
+
+        .divider span {
+            background-color: #fff;
+            padding: 0 15px;
+            color: #666;
+            position: relative;
+            z-index: 2;
+        }
+    </style>
 </head>
 
 <body>
     <div class="login-container">
-        <img src="/img/inventas.png" class="logo"
-            alt="Logo">
+        <img src="/img/inventas.png" class="logo" alt="Logo">
         <h4>Selamat Datang!</h4>
         <form id="loginForm" onsubmit="return handleLogin(event)">
             <input type="email" id="email" class="form-control" name="email" required
                 placeholder="Enter Email Address...">
             <input type="password" id="password" class="form-control" name="password" required placeholder="Password">
             <div class="checkbox-wrapper">
-               <!-- <div class="form-check">
+                <!-- <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="remember">
                     <label class="form-check-label" for="remember">
                         Remember Me
@@ -29,6 +63,14 @@
             <button type="submit" class="btn btn-primary btn-login">Login</button>
         </form>
         <div id="loginMessage"></div>
+        
+        <div class="divider">
+            <span>atau</span>
+        </div>
+
+        <div class="register-link">
+            <a href="/register" class="btn btn-outline-primary">Register</a>
+        </div>
     </div>
     <%- include('partials/scripts') %>
 </body>
