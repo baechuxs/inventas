@@ -4,7 +4,7 @@ const pool = mysql.createPool({
   host: 'inventas-sslythrrr.h.aivencloud.com',
   user: 'avnadmin',
   password: 'AVNS_bIfTMJVMVcDguBDRUqI',
-  database: 'inventas',
+  database: 'defaultdb',
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
